@@ -8,6 +8,8 @@ import (
 	"log"
 	"net/http"
 	"path/filepath"
+	"strconv"
+	"strings"
 	"time"
 )
 
@@ -51,6 +53,26 @@ func handlerIndex(w http.ResponseWriter, r *http.Request) {
 	renderTemplate(w, "templates/index.html", artists)
 }
 
+func handlerArtistDetail(w http.ResponseWriter, r *http.Request) {
+	// Extraire l'ID de l'URL manuellement
+	idStr := strings.TrimPrefix(r.URL.Path, "/artist/")
+	id, err := strconv.Atoi(idStr)
+	if err != nil || id < 1 {
+		http.Error(w, "Invalid artist ID", http.StatusBadRequest)
+		return
+	}
+
+	// Rechercher l'artiste par ID
+	for _, artist := range artists {
+		if artist.ID == id {
+			renderTemplate(w, "templates/artist.html", artist)
+			return
+		}
+	}
+
+	http.Error(w, "Artist not found", http.StatusNotFound)
+}
+
 func renderTemplate(w http.ResponseWriter, tmpl string, data interface{}) {
 	t, err := template.ParseFiles(filepath.Join(tmpl))
 	if err != nil {
@@ -72,9 +94,12 @@ func main() {
 		log.Fatalf("Erreur lors de la récupération des données des artistes: %v", err)
 	}
 
+	// Configurer les routes manuellement
+	http.HandleFunc("/", handlerIndex)
+	http.HandleFunc("/artist/", handlerArtistDetail) // Route pour les détails d'un artiste
+
 	srv := &http.Server{
 		Addr:              ":8443",
-		Handler:           http.HandlerFunc(handlerIndex),
 		ReadHeaderTimeout: 10 * time.Second,
 		WriteTimeout:      10 * time.Second,
 		IdleTimeout:       120 * time.Second,
