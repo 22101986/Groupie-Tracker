@@ -3,13 +3,16 @@
 <head>
     <meta charset="utf-8">
     <title>Artist Details</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rock+Salt&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
-<body class="bg bg-dark">
-    <div class="container mt-4">
+<body class="bg bg-dark d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+    <div class="container">
         <div class="card bg-light">
             <div class="card-body text-center">
-                <h2 class="card-title">{{.Name}}</h2>
+                <h2 class="card-title" style="font-family: 'Rock Salt', cursive; font-weight: 400; font-style: normal;">{{.Name}}</h2>
                 <p><strong>Members:</strong> {{range .Members}}{{.}}, {{end}}</p>
                 <p><strong>Creation Date:</strong> {{.CreationDate}}</p>
                 <p><strong>First Album:</strong> {{.FirstAlbum}}</p>
@@ -21,3 +24,4 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>  
 </body>
 </html>
+
