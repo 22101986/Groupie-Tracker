@@ -29,6 +29,7 @@ type Location struct {
 	DatesURL  string   `json:"dates"`
 }
 
+// Structure pour encapsuler les données des lieux
 type LocationsAPIResponse struct {
 	Index []Location `json:"index"`
 }
@@ -38,6 +39,7 @@ type Date struct {
 	Dates []string `json:"dates"`
 }
 
+// Structure pour encapsuler les données des dates
 type DatesAPIResponse struct {
 	Index []Date `json:"index"`
 }
@@ -203,6 +205,7 @@ func handlerArtistDetail(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 	}
+
 	http.Error(w, "Artiste non trouvé", http.StatusNotFound)
 }
 
@@ -234,6 +237,12 @@ func handlerConcerts(w http.ResponseWriter, r *http.Request) {
 	renderTemplate(w, "concerts.html", artistConcerts)
 }
 
+// Handler pour les pages non trouvées (Not Found)
+func notFoundHandler(w http.ResponseWriter, r *http.Request) {
+	w.WriteHeader(http.StatusNotFound)
+	renderTemplate(w, "error404.html", nil)
+}
+
 func renderTemplate(w http.ResponseWriter, tmpl string, data interface{}) {
 	tmplPath := filepath.Join("templates", tmpl)
 	t, err := template.ParseFiles(tmplPath)
@@ -256,11 +265,12 @@ func main() {
 	}
 
 	// Configurer les routes
-	http.HandleFunc("/", handlerIndex)
+	http.HandleFunc("/home", handlerIndex)
 	http.HandleFunc("/artist", handlerArtistDetail)
 	http.HandleFunc("/artist/", handlerArtistDetail)
-
-	http.HandleFunc("/concerts", handlerConcerts) // Route pour les concerts
+	http.HandleFunc("/concerts", handlerConcerts)
+	http.HandleFunc("/404", notFoundHandler)
+	http.HandleFunc("/", notFoundHandler)
 
 	// Configurer et démarrer le serveur
 	srv := &http.Server{

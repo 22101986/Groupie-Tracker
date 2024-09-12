@@ -7,6 +7,7 @@
     <style>
         body {
             background-color: #343a40;
+            
             color: white;
             font-family: 'Rock Salt', cursive;
             margin: 0;
@@ -15,6 +16,14 @@
             flex-direction: column;
             align-items: center;
         }
+        /* .backImage {
+            background-image: url('../images/download.jpg');
+            background-repeat: repeat; 
+            background-size: cover; 
+            background-position: center; 
+            background-attachment: fixed; 
+  
+        } */
         h1 {
             margin: 20px;
             text-align: center;
@@ -63,7 +72,7 @@
         }
     </style>
 </head>
-<body>
+<body class="backImage">
     <h1 style="font-size: 100px; text-shadow: 5px 5px 8px #000000;">Groupie Tracker!!</h1>
     <div class="grid">
         {{range .}}
