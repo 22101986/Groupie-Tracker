@@ -44,38 +44,38 @@
         }
         .grid-item .name-overlay {
             position: absolute;
-            bottom: 0;
+            top: 0;
             left: 0;
             right: 0;
+            bottom: 0;
             background-color: rgba(0, 0, 0, 0.7);
             color: white;
             text-align: center;
-            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: small;
             opacity: 0;
             transition: opacity 0.3s;
-            clip-path: polygon(25% 6.7%, 75% 6.7%, 100% 50%, 75% 93.3%, 25% 93.3%, 0% 50%);
         }
         .grid-item:hover .name-overlay {
             opacity: 1;
         }
-        
     </style>
-    <script>
-        function showInfo(id) {
-            // Redirection vers la page de détails de l'artiste
-            window.location.href = '/artist/' + id;
-        }
-    </script>
-    
 </head>
 <body>
     <h1 style="font-size: 100px; text-shadow: 5px 5px 8px #000000;">Groupie Tracker!!</h1>
     <div class="grid">
         {{range .}}
-        <div class="grid-item" onclick="showInfo('{{.ID}}')">
-            <img src="{{.Image}}" alt="Image of {{.Name}}">
-            <div class="name-overlay">{{.Name}}</div>
-        </div>
+        <form action="/artist" method="get" style="border: none; padding: 0; margin: 0;">
+            <input type="hidden" name="id" value="{{.ID}}">
+            <button type="submit" style="border: none; padding: 0; background: none; cursor: pointer;">
+                <div class="grid-item">
+                    <img src="{{.Image}}" alt="{{.Name}}">
+                    <div class="name-overlay">{{.Name}}</div>
+                </div>
+            </button>
+        </form>
         {{end}}
     </div>
 </body>
