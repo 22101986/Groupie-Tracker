@@ -258,6 +258,8 @@ func main() {
 	// Configurer les routes
 	http.HandleFunc("/", handlerIndex)
 	http.HandleFunc("/artist", handlerArtistDetail)
+	http.HandleFunc("/artist/", handlerArtistDetail)
+
 	http.HandleFunc("/concerts", handlerConcerts) // Route pour les concerts
 
 	// Configurer et démarrer le serveur
