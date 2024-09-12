@@ -186,6 +186,10 @@ func loadAllData() error {
 }
 
 func handlerIndex(w http.ResponseWriter, r *http.Request) {
+	if r.URL.Path != "/" {
+		notFoundHandler(w, r)
+		return
+	}
 	renderTemplate(w, "index.html", artists)
 }
 
@@ -243,6 +247,24 @@ func notFoundHandler(w http.ResponseWriter, r *http.Request) {
 	renderTemplate(w, "error404.html", nil)
 }
 
+// Handler pour les erreurs serveur (Internal Server Error)
+func internalServerErrorHandler(w http.ResponseWriter, r *http.Request) {
+	renderTemplate(w, "error500.html", nil)
+}
+
+// Middleware pour gérer les erreurs et éviter que le serveur plante
+func errorHandlerMiddleware(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		defer func() {
+			if rec := recover(); rec != nil {
+				log.Println("Captured error:", rec)
+				internalServerErrorHandler(w, r)
+			}
+		}()
+		next.ServeHTTP(w, r)
+	})
+}
+
 func renderTemplate(w http.ResponseWriter, tmpl string, data interface{}) {
 	tmplPath := filepath.Join("templates", tmpl)
 	t, err := template.ParseFiles(tmplPath)
@@ -265,22 +287,22 @@ func main() {
 	}
 
 	// Configurer les routes
-	http.HandleFunc("/home", handlerIndex)
+	http.HandleFunc("/", handlerIndex)
 	http.HandleFunc("/artist", handlerArtistDetail)
 	http.HandleFunc("/artist/", handlerArtistDetail)
 	http.HandleFunc("/concerts", handlerConcerts)
 	http.HandleFunc("/404", notFoundHandler)
-	http.HandleFunc("/", notFoundHandler)
+	http.HandleFunc("/500", internalServerErrorHandler)
 
 	// Configurer et démarrer le serveur
 	srv := &http.Server{
-		Addr:              ":8443",
+		Addr:              ":8440",
 		ReadHeaderTimeout: 10 * time.Second,
 		WriteTimeout:      10 * time.Second,
 		IdleTimeout:       120 * time.Second,
 		MaxHeaderBytes:    1 << 20,
 	}
-	log.Println("Serveur démarré sur http://localhost:8443")
+	log.Println("Serveur démarré sur http://localhost:8440")
 	if err := srv.ListenAndServe(); err != nil {
 		log.Fatal(err)
 	}
