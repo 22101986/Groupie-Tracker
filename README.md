@@ -1,38 +1,57 @@
-groupie-tracker
-Objectives
-Groupie Trackers consists on receiving a given API and manipulate the data contained in it, in order to create a site, displaying the information.
+# Groupie Trackers
 
-It will be given an API, that consists in four parts:
+Groupie Trackers is a web application that allows users to explore and visualize information about various bands and artists. The project uses data from a given API that consists of four key parts: artists, locations, dates, and relations. The goal is to create a user-friendly website that displays this information through various data visualizations, such as blocks, cards, tables, lists, pages, and graphics.
 
-The first one, artists, containing information about some bands and artists like their name(s), image, in which year they began their activity, the date of their first album and the members.
+## Features
 
-The second one, locations, consists in their last and/or upcoming concert locations.
+- Display information about bands and artists, including their names, images, start years, first album dates, and members.
+- Show concert locations and dates, including past and upcoming events.
+- Create interactive visualizations to link artists with their concert locations and dates.
+- Implement client-server communication to trigger events/actions and retrieve data dynamically.
 
-The third one, dates, consists in their last and/or upcoming concert dates.
+## API Structure
 
-And the last one, relation, does the link between all the other parts, artists, dates and locations.
+The API consists of four parts:
 
-Given all this you should build a user friendly website where you can display the bands info through several data visualizations (examples : blocks, cards, tables, list, pages, graphics, etc). It is up to you to decide how you will display it.
+1. **Artists**: Contains information about bands and artists, including:
+   - Name
+   - Image
+   - Year they began activity
+   - Date of their first album
+   - Members of the band
 
-This project also focuses on the creation of events/actions and on their visualization.
+2. **Locations**: Contains data about the locations of past and upcoming concerts.
 
-The event/action we want you to do is known as a client call to the server (client-server). We can say it is a feature of your choice that needs to trigger an action. This action must communicate with the server in order to recieve information, ([request-response])(https://en.wikipedia.org/wiki/Request%E2%80%93response)
-An event consists in a system that responds to some kind of action triggered by the client, time, or any other factor.
-Instructions
-The backend must be written in Go.
-The site and server cannot crash at any time.
-All pages must work correctly and you must take care of any errors.
-The code must respect the good practices.
-It is recommended to have test files for unit testing.
-Allowed packages
-Only the standard Go packages are allowed.
-Usage
-You can see an example of a RESTful API here
-This project will help you learn about :
+3. **Dates**: Contains data about the dates of past and upcoming concerts.
 
-Manipulation and storage of data.
-JSON files and format.
-HTML.
-Event creation and display.
-Client-server.
+4. **Relation**: Links artists with their concert dates and locations.
 
+## Objectives
+
+- Build a responsive and interactive website to display artist information.
+- Use data visualizations to present information clearly and engagingly.
+- Implement events/actions that trigger server communication, demonstrating client-server interaction.
+- Ensure the website and server are robust, handling errors gracefully without crashing.
+- Write clean, maintainable code following good practices, including unit testing.
+
+## Technologies Used
+
+- **Backend**: Go (Golang)
+- **Frontend**: HTML, CSS, JavaScript
+- **Data Format**: JSON
+
+## Requirements
+
+- The backend must be implemented in Go.
+- The application should be robust, with no crashes or unhandled errors.
+- Follow good coding practices, including code organization and error handling.
+- Include unit tests for critical parts of the codebase.
+- Use only standard Go packages.
+
+## Setup and Usage
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/yourusername/groupie-trackers.git
+   cd groupie-trackers
