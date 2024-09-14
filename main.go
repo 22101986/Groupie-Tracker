@@ -296,13 +296,13 @@ func main() {
 
 	// Configurer et démarrer le serveur
 	srv := &http.Server{
-		Addr:              ":8440",
+		Addr:              ":8444",
 		ReadHeaderTimeout: 10 * time.Second,
 		WriteTimeout:      10 * time.Second,
 		IdleTimeout:       120 * time.Second,
 		MaxHeaderBytes:    1 << 20,
 	}
-	log.Println("Serveur démarré sur http://localhost:8440")
+	log.Println("Serveur démarré sur http://localhost:8444")
 	if err := srv.ListenAndServe(); err != nil {
 		log.Fatal(err)
 	}
