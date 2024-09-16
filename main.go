@@ -198,7 +198,7 @@ func handlerArtistDetail(w http.ResponseWriter, r *http.Request) {
 	idStr := r.URL.Query().Get("id")
 	id, err := strconv.Atoi(idStr)
 	if err != nil || id < 1 {
-		http.Error(w, "ID d'artiste invalide", http.StatusBadRequest)
+		badRequestHandler(w, r)
 		return
 	}
 	// Rechercher l'artiste par ID
@@ -210,7 +210,8 @@ func handlerArtistDetail(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	http.Error(w, "Artiste non trouvé", http.StatusNotFound)
+	badRequestHandler(w, r)
+
 }
 
 func handlerConcerts(w http.ResponseWriter, r *http.Request) {
@@ -233,7 +234,7 @@ func handlerConcerts(w http.ResponseWriter, r *http.Request) {
 
 	// Si aucun concert n'est trouvé pour cet artiste
 	if artistConcerts.ID == 0 {
-		http.Error(w, "Aucun concert trouvé pour cet artiste", http.StatusNotFound)
+		badRequestHandler(w, r)
 		return
 	}
 
@@ -245,6 +246,11 @@ func handlerConcerts(w http.ResponseWriter, r *http.Request) {
 func notFoundHandler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusNotFound)
 	renderTemplate(w, "error404.html", nil)
+}
+
+// Handler pour les requêtes incorrectes (Bad Request)
+func badRequestHandler(w http.ResponseWriter, r *http.Request) {
+	renderTemplate(w, "error400.html", nil)
 }
 
 // Handler pour les erreurs serveur (Internal Server Error)
