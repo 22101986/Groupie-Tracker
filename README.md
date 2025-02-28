@@ -48,10 +48,3 @@ The API consists of four parts:
 - Include unit tests for critical parts of the codebase.
 - Use only standard Go packages.
 
-## Setup and Usage
-
-1. Clone the repository:
-
-   ```bash
-   git clone https://github.com/yourusername/groupie-trackers.git
-   cd groupie-trackers
